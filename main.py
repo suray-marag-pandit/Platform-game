@@ -127,6 +127,10 @@ class Player(pygame.sprite.Sprite):
         self.count = 0
         self.y_vel *= -1
 
+    def interact_with_hazard(self, hazard):
+        if hazard.name == "fire":
+            self.make_hit()
+
     def update_sprite(self):
         sprite_sheet = "idle"
         if self.hit:
@@ -250,36 +254,27 @@ def handle_vertical_collision(player,objects,dy):
     return collided_objects
 
 def collide(player,objects,dx):
-    player.move(dx,0)
-    player.update()
+    original_x = player.rect.x
+    player.rect.x += dx
     collided_object = None
     for obj in objects:
-        if pygame.sprite.collide_mask(player,obj):
+        if pygame.sprite.collide_mask(player, obj):
             collided_object = obj
             break
-
-    player.move(-dx,0)
-    player.update()
+    player.rect.x = original_x  # Reset the x position after checking
     return collided_object
 
 
 def handle_move(player,objects):
     key = pygame.key.get_pressed()
-
     player.x_vel = 0
-    collide_left = collide(player,objects, -PLAYER_VEL * 2)
-    collide_right = collide(player,objects, PLAYER_VEL * 2)
 
-    if key[pygame.K_LEFT]:
+    if key[pygame.K_LEFT] and not collide(player, objects, -PLAYER_VEL):
         player.move_left(PLAYER_VEL)
-    if key[pygame.K_RIGHT]:
+    if key[pygame.K_RIGHT] and not collide(player, objects, PLAYER_VEL):
         player.move_right(PLAYER_VEL)
 
-    vertical_collide = handle_vertical_collision(player,objects,player.y_vel)
-    to_check = [collide_left,collide_right,*vertical_collide]
-    for obj in to_check:
-        if obj and obj.name == "fire":
-            player.make_hit()
+    handle_vertical_collision(player, objects, player.y_vel)
 
 
 
