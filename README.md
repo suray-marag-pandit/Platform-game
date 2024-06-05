@@ -37,9 +37,9 @@ To start the game, navigate to the project directory and run the following comma
 ```python main.py```
 
 ## Controls
-Left Arrow: Move left
-Right Arrow: Move right
-Spacebar: Jump (Double jump is allowed)
+- Left Arrow: Move left
+- Right Arrow: Move right
+- Spacebar: Jump (Double jump is allowed)
 
 ## Dependencies
 Python 3.x
