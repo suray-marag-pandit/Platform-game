@@ -23,20 +23,18 @@ This project is a platformer game built using Pygame, a popular Python library f
 ## Installation
 To run this game locally, you need to have Python and Pygame installed. Follow these steps to install pygame:
 
-  ```pip install pygame
+  ```pip install pygame```
 
 
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/yourusername/platformer-game.git
-   cd platformer-game
-```
+   cd platformer-game```
 
 
 ## Usage
 To start the game, navigate to the project directory and run the following command:
-```python main.py
-```
+```python main.py```
 
 ## Controls
 Left Arrow: Move left
